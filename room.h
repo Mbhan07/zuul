@@ -17,3 +17,36 @@ using namespace std;
 */
 
 
+
+class room{
+public:
+  room();
+  room(char*description)
+    void setExit(char* direction, room* neighbor)
+    char* getShortDescription();
+
+  map<char*,room*> getExit();
+  int index;
+  char* direction;
+  room* neighbor;
+  char* itemName;
+
+  void removeItem(char* itemName);
+  item* newItem;
+  void setItem(item* newitem);
+  void printItem();
+  vector<item*> items;
+  map<char*, room*> exits;
+  char* description;
+  void getExitString();
+  int noItems();
+  char* itemDescription;
+  item* matchItem(char*itemDescription;
+};
+
+
+#endif
+
+
+
+
