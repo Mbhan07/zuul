@@ -1,6 +1,8 @@
 #include <iostream>
 #include <cstring>
 #include <vector>
+#include "room.h"
+#include "item.h"
 
 using namespace std;
 
@@ -20,9 +22,11 @@ int main(){
   // i will need three vectors: one for the room, one for the items, and one for the user's inventory
 
   /* it shoulook something like this, warranted that i create rooms.cpp, rooms.h, items.cpp, item.h, inventory.cpp, and inentory.h files 
-  vector <rooms*> rooms;
-  vector <items*> items;
-  vector <inventory*> inventory;
+  vector <room*> rooms;
+  vector <item*> items;
+  vector <inventory*> currentInventory;
+  map <char*, room*> exits;
+  room* currentRoom;
   */
   cout << "Welcome to Zuul!" <<endl;
   cout << endl;
