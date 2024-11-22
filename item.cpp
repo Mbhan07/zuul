@@ -20,7 +20,9 @@ item::item(){
 
 //initalizes the item with a description
 item::item(char* newdescription){
-  description=newdescription;
+  
+  description = new char[300];
+  strcpy(description,newdescription);
 }
 
 //to retrieve the description of the item
