@@ -1,9 +1,9 @@
 //header guard
 
-#idndef ITEM
+#ifndef ITEM
 #define ITEM
 
-#include <iostream>>
+#include <iostream>
 #include <cstring>
 #include <map>
 
