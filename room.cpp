@@ -15,7 +15,8 @@ room::room(){
 
 //initializes a room with a description
 room::room(char* newdescription){
-  description = newdescription;
+  description = new char[300];
+  strcpy(description, newdescription);
 }
 
 //set an exit for the room by associating a direction with a neighboring room
@@ -41,6 +42,10 @@ void room::getExitString(){
 //returns the map of exits for the room
 map <char*, room*> room::getExit(){
   return exits;
+}
+
+void room::setItem(item* newItem){
+  items.push_back(newItem);
 }
 
 //prints the items in the room
@@ -71,6 +76,7 @@ item* room::matchItem(char* newdescription){
      }
 
   }
+  return NULL;
 }
 
 //removes an item from the room's "items" vector by matching its description
