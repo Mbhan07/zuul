@@ -178,10 +178,6 @@ int main(){
 
       ; // loops back if something funky is entered
     }
-
-    
-
-
 }
   
   
@@ -197,4 +193,84 @@ int main(){
 
 }
 
+//going to a room by prompting the user which exit they would like to take
 
+void goToPlace(vector<room*>rooms, map<char*, room*> &exits, room* &currentRoom){
+  char output[200];
+  cout << endl;
+  currentRoom -> getExitString();
+  map<char*, room*>::iterator i;
+  cout << "Which exit would you like to go to? TYPE IN LOWERCASE" << endl;
+  cin > output;
+  cin.ignore();
+  for(i = currentRoom->getExit().begin(); i != currentRoom-> getExit().end(); ++i){
+    if(strcmp(output, i->first) == 0){
+      currentRoom = i ->second;
+      break;
+    }
+  }
+
+}
+
+
+//picking up the items
+void getItem(vector<item*> items, vector <item*>&currentInventory, room*&currentRoom){
+  char itemNames[1000];
+  //print items currently in the room, then prompt user which item they would like to get
+
+  cout << endl;
+  currentRoom->printItem();
+
+  cout << "What item would you like to GET?" << endl;
+  cin >> itemNames;
+  cin.ignore();
+
+  //account for there being no items
+  if(currentRoom->noItems() ==0){
+    cout << "There is no " << itemNames << "in the room" << endl;
+  }else {
+    //add item to current items vector
+    currentInventory.push_back(currentRoom->matchItem(itemNames));
+    //remove item form current room
+    currentRoom->removeItem(itemNames);
+    
+  }
+  
+}
+
+//print whats in the inventory
+void printInventory(vector<item*> &currentInventory,room*&currentRoom){
+  //account for the case if therei snothing in inventory
+  if(currentInventory.size() ==0){
+    cout << "There are no objects in your inventory" << endl;
+  }
+  cout << "This is your current inventory: " << endl;
+
+  //use iterator to go through vector of inventory items
+  for(std::vector<item*>:: iterator it = currentInventory.begin(); it != currentInventory.end();++i){
+    cout <<(*it)->getItemDescription() << endl;
+  }
+}
+
+
+//drop an item
+void dropItem(vector<item*> items, vector<item*>&currentInventory, room*&currentRoom){
+  char input[100];
+  cout << "Please enter the name of the item you want to drop." << endl;
+  cin.getline(input, 101, '\n');
+  item* drop;
+  //the logic is the same no matter what, so we will use one big if statement
+
+  if(strcmp(input, "Spring Roll") == 0 || strcmp(input, "Chicken Wing") == 0 || strcmp(input, "Macaroni and Cheese") == 0 || strcmp(input, "Potstickers") == 0 || strcmp(input, "Garlic Parmesan Twists") == 0 || strcmp(input, "Cheesecake") == 0){
+    for(int i = 0; i < currentInventory.size(); i++){
+      if(strcmp(input, currentInventory[i]->getItemDescription()) == false){
+	currentInventory.erase(currentInventory.begin() + i);
+	drop = currentInventory[i]'
+      }
+    }
+    currentRoom->setItem(drop);
+  }else{
+    ;
+  }
+  
+}
