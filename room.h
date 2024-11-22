@@ -21,9 +21,9 @@ using namespace std;
 class room{
 public:
   room();
-  room(char*description)
-    void setExit(char* direction, room* neighbor)
-    char* getShortDescription();
+  room(char*description);
+  void setExit(char* direction, room* neighbor);
+  char* getShortDescription();
 
   map<char*,room*> getExit();
   int index;
@@ -41,7 +41,7 @@ public:
   void getExitString();
   int noItems();
   char* itemDescription;
-  item* matchItem(char*itemDescription;
+  item* matchItem(char*itemDescription);
 };
 
 
