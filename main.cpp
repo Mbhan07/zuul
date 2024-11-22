@@ -18,13 +18,21 @@ using namespace std;
    💰💣✈ ☮✞✞🚑
 */
 
+
+//function prototypes:
+
+void goToPlace(vector<room*>rooms, map<char*, room*> &exits, room* &currentRoom);
+void getItem(vector<item*> items, vector <item*>&currentInventory, room*&currentRoom);
+void printInventory(vector<item*> &currentInventory,room*&currentRoom);
+void dropItem(vector<item*> items, vector<item*>&currentInventory, room*&currentRoom);
+
 int main(){
   // i will need three vectors: one for the room, one for the items, and one for the user's inventory
 
   // it shoulook something like this, warranted that i create rooms.cpp, rooms.h, items.cpp, item.h, inventory.cpp, and inentory.h files 
   vector <room*> rooms;
   vector <item*> items;
-  vector <inventory*> currentInventory;
+  vector <item*> currentInventory;
   map <char*, room*> exits;
   room* currentRoom;
   char go[3] = "GO";
@@ -32,15 +40,15 @@ int main(){
 
   //declearing the items
 
-  item* springRoll = new item((char*)"Spring Roll");
+  item* springRoll = new item((char*)"Roll");
 
-  item* chickenWing = new item((char*)"Chicken Wing ");
+  item* chickenWing = new item((char*)"Chicken");
 
-  item* macAndCheese = new item((char*)"Macaroni and Cheese");
+  item* macAndCheese = new item((char*)"Macaroni");
 
-  item* potStickers = new item((char*)"Potstickers ");
+  item* potStickers = new item((char*)"Potstickers");
 
-  item* garlicParm = new item((char*)"Garlic Parmesean Twists ");
+  item* garlicParm = new item((char*)"GarlicParm");
 
   item* cheeseCake = new item((char*)"Cheesecake");
 
@@ -76,7 +84,7 @@ int main(){
 
   room* HotPot = new room((char*) "You are in the Hot Pot Spot");
 
-  room* front=new room((char*)"You are the main entrance of Washington Square Mall");
+  room* front=new room((char*)"You are the main entrance of Washington Square Mall \n Exits: north, west");
 
 
   //setting the exits for the rooms
@@ -149,10 +157,13 @@ int main(){
     strcpy(out,currentRoom->getShortDescription());
     cout << out << endl;
     currentRoom->printItem();
+    cout << endl;
     cout << "What would you like to do: GO,GET,DROP,INVENTORY,QUIT, or HELP?" << endl;
-
+    cout << endl;
+	    
     cin >> player_direction;
     cin.ignore();
+    
     if(strcmp(player_direction, "GO") == 0){
       goToPlace(rooms, exits, currentRoom);
     }else if(strcmp(player_direction, "GET") == 0){
@@ -161,7 +172,7 @@ int main(){
       cout << "Goodbye!" << endl;
       exit(0);
     }else if(strcmp(player_direction, "INVENTORY") == 0){
-      printInventory(currentItems, currentRoom);
+      printInventory(currentInventory, currentRoom);
     }else if(strcmp(player_direction, "HELP") == 0){
       cout << endl;
       cout << "GO allows you to move to a different room." << endl;
@@ -181,14 +192,14 @@ int main(){
 }
   
   
-  cout << "Welcome to Zuul!" <<endl;
+  /*cout << "Welcome to Zuul!" <<endl;
   cout << endl;
   cout << "Currently, you are in the middle of Washington Square Mall." << endl;\
   cout << endl;
   cout << "Your objective is to pick up your dinner and make a quick exit to go eat it while it is still warm." << endl;
   cout << endl;
   cout << "Good luck!" << endl;
-  cout << endl;
+  cout << endl;*/
   return 0;
 
 }
@@ -200,8 +211,10 @@ void goToPlace(vector<room*>rooms, map<char*, room*> &exits, room* &currentRoom)
   cout << endl;
   currentRoom -> getExitString();
   map<char*, room*>::iterator i;
+  cout << endl;
   cout << "Which exit would you like to go to? TYPE IN LOWERCASE" << endl;
-  cin > output;
+  cin >> output;
+  cout << endl;
   cin.ignore();
   for(i = currentRoom->getExit().begin(); i != currentRoom-> getExit().end(); ++i){
     if(strcmp(output, i->first) == 0){
@@ -230,6 +243,7 @@ void getItem(vector<item*> items, vector <item*>&currentInventory, room*&current
     cout << "There is no " << itemNames << "in the room" << endl;
   }else {
     //add item to current items vector
+    cout << "Item: " << currentRoom->matchItem(itemNames)->getItemDescription() << endl;
     currentInventory.push_back(currentRoom->matchItem(itemNames));
     //remove item form current room
     currentRoom->removeItem(itemNames);
@@ -247,7 +261,7 @@ void printInventory(vector<item*> &currentInventory,room*&currentRoom){
   cout << "This is your current inventory: " << endl;
 
   //use iterator to go through vector of inventory items
-  for(std::vector<item*>:: iterator it = currentInventory.begin(); it != currentInventory.end();++i){
+  for(std::vector<item*>:: iterator it = currentInventory.begin(); it != currentInventory.end();++it){
     cout <<(*it)->getItemDescription() << endl;
   }
 }
@@ -265,7 +279,7 @@ void dropItem(vector<item*> items, vector<item*>&currentInventory, room*&current
     for(int i = 0; i < currentInventory.size(); i++){
       if(strcmp(input, currentInventory[i]->getItemDescription()) == false){
 	currentInventory.erase(currentInventory.begin() + i);
-	drop = currentInventory[i]'
+	drop = currentInventory[i];
       }
     }
     currentRoom->setItem(drop);
