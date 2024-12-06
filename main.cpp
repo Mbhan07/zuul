@@ -88,6 +88,10 @@ int main(){
 
 
   //setting the exits for the rooms
+  char * north = new char[6];
+  char * east = new char[6];
+  char * south = new char[6];
+  char * west = new char[6];
 
   front->setExit((char*)"north", Burger);
   front->setExit((char*)"west", ChickFilA);
